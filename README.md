@@ -2,13 +2,15 @@
 # Drizop
 Easy to use file drop for React. Includes list and image gallery modes, file extension filtering and progress bar.
 
+
+
 ## Usage
 ```jsx
 import  Drizop  from '@tri-bit/drizop';
 
 //place file drop in list mode
-<Drizop />
-//file drop example with props usage
+<Drizop onLoadCallback={handleFileDrop} />
+//file drop gallery mode example with props usage
 <Drizop
 	mode="image"
 	onLoadCallback={handleFileDrop}
