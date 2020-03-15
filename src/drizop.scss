@@ -1,0 +1,277 @@
+$gray1: #b5b1b1;
+$gray2-light: #f0f0f0;
+$gray-dark: #5a5a5a;
+$progress: #afafaf;
+
+
+.uploader {
+    border: 2px solid gainsboro;
+    border-radius:5px;
+    min-width:240px;
+    min-height:90px;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    word-break: break-all;
+
+    transition: all 0.2s;
+
+    /*modes*/
+    &.list {
+        flex-direction: column;
+    }
+
+    .galleryWrap {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .galleryItem {
+
+        width: 120px;
+        border-radius: 4px;
+        margin: 3px;
+        overflow: hidden;
+        height:100px;
+        position: relative;
+
+        .infoWrap {
+
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5019607843137255);
+            color: white;
+            height: auto;
+            text-align: center;
+            font-size: 13px;
+            bottom: 0px;
+            width: 100%;
+            padding: 1px;
+            padding-bottom: 2px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .divider {
+            font-size:9px;
+            margin-left: 3px;
+            margin-right: 3px;
+            color: #b3b3b3;
+        }
+
+
+
+
+
+    }
+
+
+    .removalOverlay {
+
+        opacity: 0;
+        transition: all 0.43s ease;
+        position: absolute;
+        width:100%;
+        height:100%;
+        padding:4px;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .removalIcon {
+        border-radius: 50px;
+        border: 2px solid white;
+        width: 30px;
+        height: 30px;
+        color: white;
+        display: flex;
+        font-size: 14px;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        width:100%;
+        height: 100%;
+
+        object-fit: cover;
+
+
+    }
+
+    .active {
+        background-color: gray;
+        color:white;
+        border: 3px solid #505050;
+
+    }
+
+    .message {
+        position: absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        /*background-color: green;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: $gray1;
+    }
+
+    .file {
+        border:2px solid gainsboro;
+        border:1px solid gainsboro;
+        height:80px;
+        width:60px;
+        border-radius: 2px;
+        margin:4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+    }
+
+    .fileLabel {
+        font-size: 23px;
+        color: gray;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .compactFileWrap {
+        display: flex;
+        flex-direction: column;
+        width:100%;
+    }
+
+    .compactFile {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        align-items: center;
+        text-transform: lowercase;
+        transition: background-color 0.15s ease-in;
+
+
+        .file {
+            height:55px;
+            width:38px;
+        }
+
+        .fileLabel {
+            font-size: 12px;
+        }
+
+        .fileText {
+            margin:3px;
+            color: #424242;
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 2px;
+        }
+
+        .fileSize {
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .fileName {
+            border-bottom: 1px solid gainsboro;
+        }
+
+        .fileLabels {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+        }
+
+        &:hover {
+            background-color: $gray2-light;
+
+        }
+
+        .removalOverlay {
+            margin-left: 3px;
+            align-items: center;
+            display: flex;
+
+
+        }
+
+        .removalIcon {
+
+            border: 2px solid #dcdbdb;
+            text-transform: uppercase;
+        }
+    }
+
+    .progressBarWrap {
+        width:100%;
+        text-align: left;
+        min-width: 100%;
+        overflow: hidden;
+    }
+    .progressBar {
+
+        margin:0px;
+        height:23px;
+        background-color: $progress;
+        transition: width 1s ease-in;
+
+        .progressLabel {
+            text-align: center;
+            font-weight: 700;
+
+            color: rgba(0, 0, 0, 0.72);
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            line-height: 21px;
+            font-size: 16px;
+        }
+
+    }
+
+
+    /*  https://stackoverflow.com/questions/29846224 */
+    .fadein {
+
+    opacity:0;
+    -webkit-animation: 0.4s ease 0s normal forwards 1 fade_in;
+    animation: 0.4s ease 0s normal forwards 1 fade_in;
+
+   }
+
+   @keyframes fade_in {
+     0% { opacity:0; }
+     39% { opacity:0; }
+     100% { opacity:1; }
+   }
+
+
+}
+
+.uploader.dashed {
+    border-style: dashed;
+}
+
