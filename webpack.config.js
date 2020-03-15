@@ -14,6 +14,13 @@ module.exports =  {
         main: './src/index.js'
     },
 
+    output: {
+
+        library: "drizop",
+        libraryTarget: "umd",
+
+    },
+
     module: {
 
         rules: [
