@@ -2,7 +2,7 @@ import React, { useState, useRef} from 'react';
 
 import './drizop.scss';
 
-const Uploader = (props)=> {
+const Drizop = (props)=> {
 
     //supported modes: list, image
     const mode = props.mode || 'list';
@@ -304,4 +304,4 @@ const Uploader = (props)=> {
 }
 
 
-export default Uploader;
+export default Drizop;
