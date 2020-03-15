@@ -1,16 +1,21 @@
 {
   "name": "@tri-bit/drizop",
   "version": "1.0.0",
-  "description": "React file drop component, includes list or gallery modes and file extension filtering.",
+  "description": "React file drop component, includes list and image gallery modes, file extension filtering and progress bar.",
   "main": "dist/main.js",
   "scripts": {
     "build": "webpack --mode production"
   },
+  "keywords": [
+    "React",
+    "File Drop",
+    "File Upload",
+    "Drop"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tri-bit/drizop.git"
   },
-  "keywords": [],
   "author": "Jim Welch",
   "license": "MIT",
   "bugs": {
