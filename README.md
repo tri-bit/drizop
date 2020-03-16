@@ -5,12 +5,16 @@ Easy to use file drop for React. Includes list and image gallery modes, file ext
 ![alt text](https://github.com/tri-bit/drizop/blob/master/docs/images/drizop_02.png?raw=true "Example")
 ##### Images source: Pexels.com
 
+Files can be removed by hovering over and clicking the x icon:
+
+![alt text](https://github.com/tri-bit/drizop/blob/master/docs/images/drizop_07.png?raw=true "Example2")
+
 ## Usage
 ```jsx
 import  Drizop  from '@tri-bit/drizop';
 
-//place file drop in list mode
-<Drizop />
+//place list mode file drop
+<Drizop onLoadCallback={handleFileDrop} />
 //file drop example with props usage
 <Drizop
 	mode="image"

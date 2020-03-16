@@ -166,6 +166,7 @@ $progress: #afafaf;
     .compactFile {
         position: relative;
         display: flex;
+        display: inline-flex;
         flex-direction: row;
         justify-items: center;
         align-items: center;
