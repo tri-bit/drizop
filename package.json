@@ -1,6 +1,6 @@
 {
   "name": "@tri-bit/drizop",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "React file drop component, includes list and image gallery modes, file extension filtering and progress bar.",
   "main": "dist/main.js",
   "scripts": {
