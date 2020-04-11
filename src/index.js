@@ -173,9 +173,12 @@ const Drizop = (props)=> {
 
     const filterNewFiles = files => {
 
+
+        /*
         if(mode === 'image') {
             return files.filter(file => getFileType(file) === 'image' );
         }
+        */
 
         const blockedList = blockedFileTypes.toLowerCase().split(',').map(type => type.trim());
         const allowedList = allowedFileTypes ? allowedFileTypes.toLowerCase().split(',').map(type => type.trim().replace('.', '')) : null;
@@ -183,15 +186,22 @@ const Drizop = (props)=> {
         const filtered = files.filter(file => {
 
             const extension = getExtension(file.name).replace('.', '');
-            const allow = !blockedList.includes(extension) && (!allowedList || allowedList.includes(extension));
+            const allowedExtension = !blockedList.includes(extension) && (!allowedList || allowedList.includes(extension));
             //console.log(`allow?: ${file.name} ${extension} ${allow}`);
 
-            return allow;
+            const approved = allowedExtension;
+
+            if(approved && (mode === 'image')) {
+                return getFileType(file) === 'image';
+            }
+
+            return approved;
         })
 
         return filtered;
 
     }
+
 
     const renderPreview = (files)=> {
 

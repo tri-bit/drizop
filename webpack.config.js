@@ -61,7 +61,7 @@ module.exports =  {
     //plugins: [ new CleanWebpackPlugin(), htmlWebpackPlugin ]
 
 
-
+    /*
     externals: {
         // Don't bundle react or react-dom
         react: {
@@ -77,6 +77,8 @@ module.exports =  {
             root: "ReactDOM"
         }
     }
+
+    */
 
 
 }
