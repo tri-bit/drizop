@@ -12,6 +12,7 @@ const Drizop = (props)=> {
     const [displayFiles, setDisplayFiles] = useState(null);
     const droppedFiles = useRef([]); //actual file objects that will be delivered via callback
     const fileLimit = props.fileLimit || 8;
+    const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
 
     const filesRemovable = true;
 
@@ -37,7 +38,13 @@ const Drizop = (props)=> {
         e.preventDefault();
         e.stopPropagation();
 
+
+
         if(isFileDropLocked()) return;
+
+        if(clearPreviousOnDrop) {
+            clearFiles();
+        }
 
         let newFiles = e.target.files || e.dataTransfer.files;
 
@@ -81,6 +88,16 @@ const Drizop = (props)=> {
     }
 
 
+    const clearFiles = ()=> {
+
+        droppedFiles.current = [];
+        setDisplayFiles(null);
+        loadedFiles.current = []; //used by uploader component
+        loadedFileCount.current = 0;
+
+    }
+
+
     const loadFiles = async files => {
 
         const filtered = [...files];
@@ -118,7 +135,11 @@ const Drizop = (props)=> {
 
 
     const onDragLeave = ()=> {
+
         setActive(false);
+
+
+
     }
 
 
@@ -220,7 +241,7 @@ const Drizop = (props)=> {
 
             if (file.dataURL && type === 'image') {
                 return (
-                <div className="galleryItem">
+                <div className="galleryItem" key={index}>
 
                 {!isFileRemovalLocked() && (
                 <div className="removalOverlay"><div onClick={()=>{ handleFileRemoveClick(file.name)}}>{removalIcon}</div></div>

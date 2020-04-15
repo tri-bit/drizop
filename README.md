@@ -32,6 +32,7 @@ import  Drizop  from '@tri-bit/drizop';
 | mode | "image" or "list" (Default value: "list")
 | onLoadCallback | Use this callback to send the dropped files to your application (for uploading, etc.) Every time a new file is dropped or a file removed this callback will send the updated file array.
 | allowedFileTypes | a comma seperated string of the allowed extensions (Example: "png, txt, jpg")
+| clearPreviousOnDrop | reset the file list on a new file drop (Default value: "false")
 | progress | You can display upload progress percentage (0-100) Setting above zero will lock file drops / removal.
 | message | Text in the center of component. (Default value: 'Drop File(s) Here')
 | fileLimit | Sets max number of files allowed (Default value: 8)
