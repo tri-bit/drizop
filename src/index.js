@@ -14,6 +14,7 @@ const Drizop = (props)=> {
     const fileLimit = props.fileLimit || 8;
     const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
     const button = props.button || false;
+    const buttonMessage = props.buttonMessage || 'Click Here To Upload';
 
     const filesRemovable = true;
 
@@ -320,7 +321,7 @@ const Drizop = (props)=> {
             <>{/*<button onClick={handleButtonClick}>Or Click Here</button> */}
                 <div class="uploadButton">
                     <input className="uploadInput" name="file" id="file" type="file" multiple onChange={(e)=> handleFileAddition(e)} />
-                    <label onClick={console.log('test')} className="uploadLabel" >Click Here To Upload</label>
+                    <label onClick={console.log('test')} className="uploadLabel" >{buttonMessage}</label>
                 </div>
             </>
 
