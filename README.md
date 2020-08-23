@@ -15,6 +15,7 @@ import  Drizop  from '@tri-bit/drizop';
 
 //list mode example with filtered extensions
 <Drizop onLoadCallback={handleFileDrop} allowedFileTypes="txt, doc, rtf"/>
+
 //image gallery example with additional props
 <Drizop
 	mode="image"
@@ -35,6 +36,7 @@ import  Drizop  from '@tri-bit/drizop';
 | clearPreviousOnDrop | reset the file list on a new file drop (Default value: "false")
 | progress | You can display upload progress percentage (0-100) Setting above zero will lock file drops / removal.
 | message | Text in the center of component. (Default value: 'Drop File(s) Here')
+| button | Set to "true" to add a clickable button to the uploader - uses the browsers file open dialog (Default value: "false")
 | fileLimit | Sets max number of files allowed (Default value: 8)
 | style | style object applied to Drizop component (Default value: {})
 

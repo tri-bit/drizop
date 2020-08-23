@@ -13,6 +13,7 @@ const Drizop = (props)=> {
     const droppedFiles = useRef([]); //actual file objects that will be delivered via callback
     const fileLimit = props.fileLimit || 8;
     const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
+    const button = props.button || false;
 
     const filesRemovable = true;
 
@@ -35,9 +36,14 @@ const Drizop = (props)=> {
     }
 
     const onDrop = (e) => {
+
         e.preventDefault();
         e.stopPropagation();
 
+        handleFileAddition(e);
+    }
+
+    const handleFileAddition = (e)=> {
 
 
         if(isFileDropLocked()) return;
@@ -84,6 +90,8 @@ const Drizop = (props)=> {
         if(props.onLoadCallback) {
             props.onLoadCallback(droppedFiles.current);
         }
+
+
 
     }
 
@@ -303,6 +311,30 @@ const Drizop = (props)=> {
     const shouldRenderProgress = ()=>  progress > 0 && droppedFiles.current.length > 0
 
 
+    //https://tympanus.net/codrops/2015/09/15/
+
+    const renderButton = ()=> {
+
+        return(
+
+            <>{/*<button onClick={handleButtonClick}>Or Click Here</button> */}
+                <div class="uploadButton">
+                    <input className="uploadInput" name="file" id="file" type="file" multiple onChange={(e)=> handleFileAddition(e)} />
+                    <label onClick={console.log('test')} className="uploadLabel" >Click Here To Upload</label>
+                </div>
+            </>
+
+        )
+
+
+    }
+
+    const handleButtonClick = (e)=>  {
+
+        console.log('button click');
+
+    }
+
     return(
 
         <div style={{maxWidth:'800', margin:'auto'}}>
@@ -313,9 +345,18 @@ const Drizop = (props)=> {
             onDrop={ (e)=> onDrop(e) }
             onDragOver={(e)=> onDragOver(e)}
         >
-        { (!displayFiles || displayFiles.length == 0) && <div className="message">{message}</div> }
+        { (!displayFiles || displayFiles.length == 0) && (
+            <>
+                <div className="message">{message}{button && renderButton()}</div>
+
+            </>
+        )}
+
+
 
         {renderPreview(displayFiles)}
+
+
 
         {/*render bar @ 0px height even if not used for correct transition animation from 0 progress*/}
         <div className="progressBarWrap" style={{height: shouldRenderProgress() ? 'inherit':0 }}><div className="progressBar" style={{width:`${progress}%`}}>
