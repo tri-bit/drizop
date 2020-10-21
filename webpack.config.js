@@ -18,7 +18,7 @@ module.exports =  {
 
         library: "drizop",
         libraryTarget: "umd",
-
+        globalObject: "this"
     },
 
     module: {
