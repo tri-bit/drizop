@@ -7,6 +7,8 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
     filename:'./index.html'
 });
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports =  {
 
@@ -56,6 +58,10 @@ module.exports =  {
     resolve: {
         extensions: [".js", ".jsx"]
     },
+
+    plugins: [
+        new BundleAnalyzerPlugin()
+    ],
 
     //plugins: [ new CleanWebpackPlugin(), htmlWebpackPlugin ]
 
