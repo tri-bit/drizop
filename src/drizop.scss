@@ -2,6 +2,7 @@ $gray1: #b5b1b1;
 $gray2-light: #f0f0f0;
 $gray-dark: #5a5a5a;
 $progress: #afafaf;
+$red:#c84141;
 
 
 .drizop, .uploader {
@@ -154,7 +155,7 @@ $progress: #afafaf;
 
     }
 
-    .message {
+    &__message {
         position: absolute;
         left:0;
         right:0;
@@ -167,6 +168,11 @@ $progress: #afafaf;
         align-items: center;
         font-size: 14px;
         color: $gray1;
+
+        &.removalMessage {
+            position: relative;
+            color:$red;
+        }
     }
 
     .file {

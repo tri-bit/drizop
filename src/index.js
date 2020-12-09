@@ -15,11 +15,11 @@ const Drizop = (props)=> {
     const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
     const button = props.button || false;
     const buttonMessage = props.buttonMessage || 'Click Here To Upload';
+    const requiredImageSize = props.requiredImageSize &&  props.requiredImageSize.width && props.requiredImageSize.height ? props.requiredImageSize : null;
 
     const filesRemovable = true;
 
     const style = props.style || {};
-    const message = props.message || 'Drop File(s) Here';
     const border = ' dashed ' || '';
 
     const progress = props.progress || 0;
@@ -28,6 +28,25 @@ const Drizop = (props)=> {
 
     const allowedFileTypes = props.allowedFileTypes || null;
     const blockedFileTypes = 'dmg, exe, php';
+
+    const removedFileMessage = useRef(null);
+
+    const createDropMessage = ()=> {
+
+        let messageMarkup = [];
+        const message = props.message || mode === 'image' ? 'Drop Image(s) Here' : 'Drop File(s) Here';
+        messageMarkup.push(<div>{message}</div>);
+
+        if(requiredImageSize) {
+            const { width, height } = requiredImageSize;
+            messageMarkup.push(<div>Required image size: <div>{width}x{height} pixels</div></div>);
+        }
+
+        return <div>{messageMarkup}</div>
+
+    }
+
+    const message = createDropMessage();
 
     const onDragOver = (e) => {
         e.preventDefault();
@@ -52,6 +71,8 @@ const Drizop = (props)=> {
         if(clearPreviousOnDrop) {
             clearFiles();
         }
+
+        removedFileMessage.current = null;
 
         let newFiles = e.target.files || e.dataTransfer.files;
 
@@ -143,6 +164,7 @@ const Drizop = (props)=> {
     }
 
 
+
     const onDragLeave = ()=> {
 
         setActive(false);
@@ -222,6 +244,9 @@ const Drizop = (props)=> {
             const approved = allowedExtension;
 
             if(approved && (mode === 'image')) {
+
+                //if(requiredImageSize)
+
                 return getFileType(file) === 'image';
             }
 
@@ -229,6 +254,28 @@ const Drizop = (props)=> {
         })
 
         return filtered;
+
+    }
+
+    const handleImageLoad =({e, fileName})=> {
+
+            const { naturalWidth, naturalHeight } = e.target;
+            console.log('***image load', { naturalWidth, naturalHeight, fileName });
+
+            if(requiredImageSize) {
+                const { width, height } = requiredImageSize;
+
+                if((width !== naturalWidth) || (height !== naturalHeight)) {
+
+                    console.log('image does not meet size requirements, removing file');
+
+                    removedFileMessage.current = <>Image Did Not Meet Size Requirements</>
+                    removeFile(fileName);
+
+                } else {
+                    console.log('image meets size requirements');
+                }
+            }
 
     }
 
@@ -250,14 +297,16 @@ const Drizop = (props)=> {
 
             if (file.dataURL && type === 'image') {
                 return (
+
                 <div className="galleryItem" key={index}>
 
-                {!isFileRemovalLocked() && (
-                <div className="removalOverlay"><div onClick={()=>{ handleFileRemoveClick(file.name)}}>{removalIcon}</div></div>
-                )}
+                    {!isFileRemovalLocked() && (
+                    <div className="removalOverlay"><div onClick={()=>{ handleFileRemoveClick(file.name)}}>{removalIcon}</div></div>
+                    )}
 
-                <div className="infoWrap">{getExtension( file.name).toUpperCase()} <span className="divider">|</span> {getFileSize( file )}</div>
-                <img key={index}  src={file.dataURL} />
+                    <div className="infoWrap">{getExtension( file.name).toUpperCase()} <span className="divider">|</span> {getFileSize( file )}</div>
+                    <img onLoad={(e) => handleImageLoad({e, fileName:file.name} )} key={index}  src={file.dataURL} />
+
                 </div>
                 )
             } else {
@@ -266,6 +315,8 @@ const Drizop = (props)=> {
 
 
         })
+
+
 
         //compact, with file names, & size
         const compactFilesRender = displayFiles.map((file, index) => {
@@ -339,33 +390,39 @@ const Drizop = (props)=> {
     return(
 
         <div style={{maxWidth:'800', margin:'auto'}}>
-        <div
-            style={style}
-            className={`uploader ${mode} ${active ? 'active' : ''}${border}`}
-            onDragLeave={onDragLeave}
-            onDrop={ (e)=> onDrop(e) }
-            onDragOver={(e)=> onDragOver(e)}
-        >
-        { (!displayFiles || displayFiles.length == 0) && (
-            <>
-                <div className="message">{message}{button && renderButton()}</div>
 
-            </>
-        )}
+            <div
+                style={style}
+                className={`uploader ${mode} ${active ? 'active' : ''}${border}`}
+                onDragLeave={onDragLeave}
+                onDrop={ (e)=> onDrop(e) }
+                onDragOver={(e)=> onDragOver(e)}
+            >
+                { (!displayFiles || displayFiles.length == 0) && (
+                    <>
+                        <div className="drizop__message">{message}{button && renderButton()}</div>
 
-
-
-        {renderPreview(displayFiles)}
+                    </>
+                )}
 
 
 
-        {/*render bar @ 0px height even if not used for correct transition animation from 0 progress*/}
-        <div className="progressBarWrap" style={{height: shouldRenderProgress() ? 'inherit':0 }}><div className="progressBar" style={{width:`${progress}%`}}>
-        {shouldRenderProgress() && (<div className="progressLabel">{`${progress}%`}</div>) }
-        </div></div>
+                {renderPreview(displayFiles)}
 
-        </div>
 
+
+                {/*render bar @ 0px height even if not used for correct transition animation from 0 progress*/}
+                <div className="progressBarWrap" style={{height: shouldRenderProgress() ? 'inherit':0 }}><div className="progressBar" style={{width:`${progress}%`}}>
+                {shouldRenderProgress() && (<div className="progressLabel">{`${progress}%`}</div>) }
+                </div></div>
+
+
+
+            </div>
+
+            {removedFileMessage.current && (
+                <div className="drizop__message removalMessage fadein">{removedFileMessage.current}</div>
+            )}
 
         </div>
 
