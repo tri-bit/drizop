@@ -12,6 +12,7 @@ const Drizop = (props)=> {
     const [displayFiles, setDisplayFiles] = useState(null);
     const droppedFiles = useRef([]); //actual file objects that will be delivered via callback
     const fileLimit = props.fileLimit || 8;
+    const fileSizeLimitInKB = props.fileSizeLimitInKB || (1024 * 200); //200mb default limit
     const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
     const button = props.button || false;
     const buttonMessage = props.buttonMessage || 'Click Here To Upload';
@@ -218,8 +219,11 @@ const Drizop = (props)=> {
 
     }
 
+    const getFileSizeInKB = file => (file.size / 1024).toFixed(2);
 
-    const getFileSize = file => `${(file.size / 1024).toFixed(2)} KB`;
+    const getFileSize = file => `${getFileSizeInKB(file)} KB`;
+
+    const isFileSizeAllowed = file => getFileSizeInKB(file) <= fileSizeLimitInKB;
 
     const getExtension = fileName => fileName.toLowerCase().substring(fileName.lastIndexOf('.'), fileName.length);
 
@@ -245,9 +249,11 @@ const Drizop = (props)=> {
 
             if(approved && (mode === 'image')) {
 
-                //if(requiredImageSize)
-
                 return getFileType(file) === 'image';
+            }
+
+            if(!isFileSizeAllowed(file)) {
+                return false;
             }
 
             return approved;
