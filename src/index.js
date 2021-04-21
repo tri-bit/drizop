@@ -16,7 +16,10 @@ const Drizop = (props)=> {
     const clearPreviousOnDrop = props.clearPreviousOnDrop || false;
     const button = props.button || false;
     const buttonMessage = props.buttonMessage || 'Click Here To Upload';
+    const standaloneUploadButton = props.standaloneUploadButton || false;
     const requiredImageSize = props.requiredImageSize &&  props.requiredImageSize.width && props.requiredImageSize.height ? props.requiredImageSize : null;
+
+
 
     const filesRemovable = true;
 
@@ -376,9 +379,11 @@ const Drizop = (props)=> {
         return(
 
             <>{/*<button onClick={handleButtonClick}>Or Click Here</button> */}
-                <div class="uploadButton">
-                    <input className="uploadInput" name="file" id="file" type="file" multiple onChange={(e)=> handleFileAddition(e)} />
-                    <label onClick={console.log('test')} className="uploadLabel" >{buttonMessage}</label>
+                <div class="uploaderButtonSection">
+                    <div class="uploadButton">
+                        <input className="uploadInput" name="file" id="file" type="file" multiple onChange={(e)=> handleFileAddition(e)} />
+                        <label onClick={console.log('test')} className="uploadLabel" >{buttonMessage}</label>
+                    </div>
                 </div>
             </>
 
@@ -411,11 +416,7 @@ const Drizop = (props)=> {
                     </>
                 )}
 
-
-
                 {renderPreview(displayFiles)}
-
-
 
                 {/*render bar @ 0px height even if not used for correct transition animation from 0 progress*/}
                 <div className="progressBarWrap" style={{height: shouldRenderProgress() ? 'inherit':0 }}><div className="progressBar" style={{width:`${progress}%`}}>
@@ -425,6 +426,15 @@ const Drizop = (props)=> {
 
 
             </div>
+
+
+            {standaloneUploadButton && (
+
+                <div style={{textAlign:'center'}}>
+                {renderButton()}
+                </div>
+
+            )}
 
             {removedFileMessage.current && (
                 <div className="drizop__message removalMessage fadein">{removedFileMessage.current}</div>

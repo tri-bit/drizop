@@ -116,36 +116,6 @@ $red:#c84141;
 
     }
 
-    .uploadButton {
-        padding:10px;
-
-    }
-
-    .uploadLabel {
-        border:2px solid gainsboro;
-        border-radius:3px;
-        cursor: pointer;
-        margin: 10px;
-        background-color: transparent;
-        color:$gray1;
-        padding:2px;
-        pointer-events: none;
-
-    }
-
-    .uploadInput {
-
-        /* hide */
-        width: 0.1px;
-
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-
-        width:200px;
-
-
-    }
 
 
     .active {
@@ -307,6 +277,42 @@ $red:#c84141;
      100% { opacity:1; }
    }
 
+
+}
+
+
+.uploaderButtonSection {
+
+    .uploadButton {
+        padding:10px;
+        position: relative;
+
+    }
+
+    .uploadLabel {
+        border:2px solid gainsboro;
+        border-radius:3px;
+        cursor: pointer;
+        margin: 10px;
+        background-color: transparent;
+        color:$gray1;
+        padding:2px;
+        pointer-events: none;
+
+    }
+
+    .uploadInput {
+
+        /* hide */
+        font-size: 50px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        left:0;
+        top:0;
+        width:100%;
+
+    }
 
 }
 
